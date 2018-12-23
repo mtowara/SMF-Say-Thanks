@@ -41,6 +41,9 @@
 			if ($message['member']['thanks'] > 0 && empty($modSettings['saythanks_hide_thanks_count_on_post']))
 				echo '
 								<li class="thankscount"><a href="', $scripturl, '?action=profile;area=showposts;sa=thanked;u=', $message['member']['id'], '">', $txt['saythanks_thankscount'], ': ', $message['member']['thanks'], ' ', $txt['saythanks_times'] ,'</a></li>';
+			if ($message['member']['thanks_given'] > 0 && empty($modSettings['saythanks_hide_thanks_count_on_post']))
+				echo '
+								<li class="thankscount"><a href="', $scripturl, '?action=profile;area=showposts;sa=thank;u=', $message['member']['id'], '">', $txt['saythanks_thanksgivencount'], ': ', $message['member']['thanks_given'], ' ', $txt['saythanks_times'] ,'</a></li>';
 			/* Say Thanks mod end */
 			]]></add>
 		</operation>
@@ -128,24 +131,40 @@ function ModifySayThanksSettings($return_config = false) {
 	// Update or insert counts as necessary.
 	while ($row = $smcFunc['db_fetch_assoc']($request))
 	{
-		$thank_counts[] = array(
+		$thank_counts[$row['id_member']] = array(
 			'id_member' => $row['id_member'],
 			'thanks_count' => $row['thanks_count'],
+			'thanks_given_count' => 0,
 		);
 	}
+	$smcFunc['db_free_result']($request);
+
+	// mtowara: update thanks_given_count
+	$request = $smcFunc['db_query']('', '
+		SELECT COUNT(id_member) AS thanks_given_count, id_member FROM {db_prefix}messages_thanks WHERE id_member <> 0 GROUP BY id_member'
+	);
+
+	// Update if already exists, else create new row
+	while ($row = $smcFunc['db_fetch_assoc']($request))
+	{
+		$thank_counts[$row['id_member']] = array(
+			'id_member' => $row['id_member'],
+			'thanks_count' => $thank_counts[$row['id_member']] ? $thank_counts[$row['id_member']]['thanks_count'] : 0 ,
+			'thanks_given_count' => $row['thanks_given_count'],
+		);
+	}
+	$smcFunc['db_free_result']($request);
 	
 	if (!empty($thank_counts)) {
 		$smcFunc['db_insert']('insert' ,
 			'{db_prefix}messages_thanks_stats',
 			array(
-				'id_member' => 'int', 'thanks_count' => 'int'
+				'id_member' => 'int', 'thanks_count' => 'int', 'thanks_given_count' => 'int'
 			),
 			$thank_counts,
 			array('id_member')
 		);
 	}
-	
-	$smcFunc['db_free_result']($request);
 	/* Say Thanks mod end */
 ]]></add>
 		</operation>
@@ -154,16 +173,16 @@ function ModifySayThanksSettings($return_config = false) {
 		<operation>
 			<search position="before"><![CDATA['local_time' => timeformat(time() + ($profile['time_offset'] - $user_info['time_offset']) * 3600, false),]]></search>
 			<add><![CDATA[
-		'thanks' => $profile['thanks'],]]></add>
+		'thanks' => $profile['thanks'],'thanks_given' => $profile['thanks_given'],]]></add>
 		</operation>
 		<operation>
 			<search position="before"><![CDATA[, mem.posts,]]></search>
 			<add><![CDATA[
-			mts.thanks_count AS thanks,]]></add>
+			mts.thanks_count AS thanks,mts.thanks_given_count AS thanks_given,]]></add>
 		</operation>
 		<operation>
 			<search position="before"><![CDATA[SELECT mem.*, IFNULL(a.id_attach, 0) AS id_attach, a.filename, a.attachment_type]]></search>
-			<add><![CDATA[, mts.thanks_count AS thanks]]></add>
+			<add><![CDATA[, mts.thanks_count AS thanks, mts.thanks_given_count AS thanks_given]]></add>
 		</operation>
 		<operation>
 			<search position="before"><![CDATA[LEFT JOIN {db_prefix}attachments AS a ON (a.id_member = {int:id_member})]]></search>
@@ -183,7 +202,7 @@ function ModifySayThanksSettings($return_config = false) {
 		<operation>
 			<search position="before"><![CDATA[, mem.ignore_boards, mem.warning,]]></search>
 			<add><![CDATA[
-			mts.thanks_count AS thanks,]]></add>
+			mts.thanks_count AS thanks, mts.thanks_given_count AS thanks_given,]]></add>
 		</operation>
 		<operation>
 			<search position="before"><![CDATA[LEFT JOIN {db_prefix}log_online AS lo ON (lo.id_member = mem.id_member)
@@ -206,10 +225,14 @@ if (isset($_GET['sa']) && $_GET['sa'] == 'thank')
 		<operation>
 			<search position="after"><![CDATA[// Only show the email address fully if it's not hidden - and we reveal the email.]]></search>
 			<add><![CDATA[/* Say Thanks mod start */
-	if ($context['member']['thanks'] > 0 && empty($modSettings['saythanks_hide_thanks_count_in_profile']))
+	if ($context['member']['thanks'] >= 0 && empty($modSettings['saythanks_hide_thanks_count_in_profile']))
 		echo '
 					<dt>', $txt['saythanks_thankscount'], ': </dt>
 					<dd><a href="', $scripturl, '?action=profile;area=showposts;sa=thanked;u=', $context['member']['id'], '">', $context['member']['thanks'], ' ', $txt['saythanks_times'], '</a></dd>';
+	if ($context['member']['thanks_given'] >= 0 && empty($modSettings['saythanks_hide_thanks_count_in_profile']))
+		echo '
+					<dt>', $txt['saythanks_thanksgivencount'], ': </dt>
+					<dd><a href="', $scripturl, '?action=profile;area=showposts;sa=thank;u=', $context['member']['id'], '">', $context['member']['thanks_given'], ' ', $txt['saythanks_times'], '</a></dd>';					
 	/* Say Thanks mod end */
 		]]></add>
 		</operation>

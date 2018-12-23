@@ -7,7 +7,7 @@
  * @copyright 2014 kelvincoool, 2018 mtowara
  * @license http://creativecommons.org/licenses/by/3.0 CC
  *
- * @version 1.2
+ * @version 1.4.0
  */
 
 // If SSI.php is in the same place as this file, and SMF isn't defined, this is being run standalone.
@@ -50,6 +50,10 @@ $columns = array(
 	),
 	array(
 		'name' => 'thanks_count',
+		'type' => 'mediumint',
+	),
+	array(
+		'name' => 'thanks_given_count',
 		'type' => 'mediumint',
 	)
 );

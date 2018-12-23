@@ -71,7 +71,7 @@ class SayThanks
 		);
 		if ($smcFunc['db_affected_rows']() > 0) {
 			$thank_stats = $smcFunc['db_query']('', '
-				SELECT s.thanks_count
+				SELECT s.thanks_count, s.thanks_given_count
 				FROM {db_prefix}messages_thanks_stats s
 				WHERE s.id_member = {int:id_member}',
 				array(
@@ -80,20 +80,54 @@ class SayThanks
 			);
 
 			$thank_count = 1;
+			$thank_given_count = 0;
 			if ($smcFunc['db_num_rows']($thank_stats) != 0)
 			{
 				$thank_stat = $smcFunc['db_fetch_assoc']($thank_stats);
 				$thank_count = $thank_stat['thanks_count'] + 1;
+				$thank_given_count = $thank_stat['thanks_given_count'];
 			}
 			$smcFunc['db_free_result']($thank_stats);
 
 			$smcFunc['db_insert']('replace' ,
 				'{db_prefix}messages_thanks_stats',
 				array(
-					'id_member' => 'int', 'thanks_count' => 'int'
+					'id_member' => 'int', 'thanks_count' => 'int', 'thanks_given_count' => 'int'
 				),
 				array(
-					$member, $thank_count
+					$member, $thank_count, $thank_given_count
+				),
+				array('id_member')
+			);
+
+			// mtowara: update thanks given stat
+			$thank_stats = $smcFunc['db_query']('', '
+				SELECT s.thanks_count, s.thanks_given_count
+				FROM {db_prefix}messages_thanks_stats s
+				WHERE s.id_member = {int:id_member}',
+				array(
+					'id_member' => $user_info['id'],
+				)
+			);
+			
+			$thank_count = 0;
+			$thank_given_count = 1;
+			if ($smcFunc['db_num_rows']($thank_stats) != 0)
+			{
+				$thank_stat = $smcFunc['db_fetch_assoc']($thank_stats);
+				$thank_count = $thank_stat['thanks_count'];
+				$thank_given_count = $thank_stat['thanks_given_count'] + 1;
+			}
+			$smcFunc['db_free_result']($thank_stats);
+
+			$smcFunc['db_insert'](
+				'replace',
+				'{db_prefix}messages_thanks_stats',
+				array(
+					'id_member' => 'int', 'thanks_count' => 'int', 'thanks_given_count' => 'int'
+				),
+				array(
+					$user_info['id'], $thank_count, $thank_given_count
 				),
 				array('id_member')
 			);
@@ -193,7 +227,7 @@ class SayThanks
 		);
 		if ($smcFunc['db_affected_rows']() > 0) {
 			$thank_stats = $smcFunc['db_query']('', '
-				SELECT s.thanks_count
+				SELECT s.thanks_count, s.thanks_given_count
 				FROM {db_prefix}messages_thanks_stats s
 				WHERE s.id_member = {int:id_member}',
 				array(
@@ -202,20 +236,52 @@ class SayThanks
 			);
 
 			$thank_count = 0;
+			$thank_given_count = 0;
 			if ($smcFunc['db_num_rows']($thank_stats) != 0)
 			{
 				$thank_stat = $smcFunc['db_fetch_assoc']($thank_stats);
 				$thank_count = $thank_stat['thanks_count'] - 1;
+				$thank_given_count = $thank_stat['thanks_given_count'];
 			}
 			$smcFunc['db_free_result']($thank_stats);
 
 			$smcFunc['db_insert']('replace' ,
 				'{db_prefix}messages_thanks_stats',
 				array(
-					'id_member' => 'int', 'thanks_count' => 'int'
+					'id_member' => 'int', 'thanks_count' => 'int', 'thanks_given_count' => 'int'
 				),
 				array(
-					$member, $thank_count
+					$member, $thank_count, $thank_given_count
+				),
+				array('id_member')
+			);
+
+			// mtowara: update thanks given stat
+			$thank_stats = $smcFunc['db_query'](
+				'', 
+				'SELECT s.thanks_count, s.thanks_given_count
+				FROM {db_prefix}messages_thanks_stats s
+				WHERE s.id_member = {int:id_member}',
+				array('id_member' => $user_info['id'],)
+			);
+			
+			$thank_count = 0;
+			$thank_given_count = 0;
+			if ($smcFunc['db_num_rows']($thank_stats) != 0)
+			{
+				$thank_stat = $smcFunc['db_fetch_assoc']($thank_stats);
+				$thank_count = $thank_stat['thanks_count'];
+				$thank_given_count = $thank_stat['thanks_given_count'] - 1;
+			}
+			$smcFunc['db_free_result']($thank_stats);
+
+			$smcFunc['db_insert']('replace' ,
+				'{db_prefix}messages_thanks_stats',
+				array(
+					'id_member' => 'int', 'thanks_count' => 'int', 'thanks_given_count' => 'int'
+				),
+				array(
+					$user_info['id'], $thank_count, $thank_given_count
 				),
 				array('id_member')
 			);

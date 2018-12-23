@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0"?>
 <!DOCTYPE modification SYSTEM "http://www.simplemachines.org/xml/modification">
 <modification xmlns="http://www.simplemachines.org/xml/modification" xmlns:smf="http://www.simplemachines.org/">
-	<id>kelvincool:say_thanks</id>
+	<id>mtowara:say_thanks</id>
 	<version>1.4.0</version>
 	<file name="$themedir/languages/Modifications.english.php">
 		<operation>
@@ -10,7 +10,8 @@
 // Say Thanks Mod
 $txt['saythanks_text'] = 'Say Thanks';
 $txt['saythanks_thanked'] = 'The following users thanked this post: ';
-$txt['saythanks_thankscount'] = 'Thanked';
+$txt['saythanks_thankscount'] = 'Thanks received';
+$txt['saythanks_thanksgivencount'] = 'Thanks given';
 $txt['saythanks_times'] = 'times'; // e.g Thanked 7 times
 $txt['saythanks_withdraw_thanks'] = 'Withdraw Thanks';
 $txt['saythanks_settings'] = 'Say Thanks';
@@ -162,8 +163,8 @@ $txt['saythanks_text'] = 'Ringrazia';
 $txt['saythanks_thanked'] = 'I seguenti utenti hanno ringraziato questo post:';
 $txt['saythanks_thankscount'] = 'Ringraziato';
 $txt['saythanks_times'] = 'volte';
-$txt['saythanks_most_thanked'] = 'I 10 utenti pi� ringraziati';
-$txt['saythanks_most_thanks_given'] = 'I 10 utenti che hanno ringraziato di pi�';
+$txt['saythanks_most_thanked'] = 'I 10 utenti pi� ringraziati';
+$txt['saythanks_most_thanks_given'] = 'I 10 utenti che hanno ringraziato di pi�';
 $txt['saythanks_withdraw_thanks_settings_desc'] = 'Abilita l\'opzione per annullare il ringraziamento';
 $txt['saythanks_withdraw_thanks'] = 'Annulla ringraziamento';
 $txt['saythanks_hide_thanks_count_on_post_settings_desc'] = 'Nascondi il contatore dei ringraziamenti nei post';
@@ -219,7 +220,8 @@ $txt['saythanks_ajax_guest'] = '<a href="' . $scripturl . '?action=login">Zum Be
 //German translation for Ver 1.3.1 by larry007 , (http://www.simplemachines.org/community/index.php?action=profile;area=summary;u=130706)
 $txt['saythanks_text'] = 'Sag Danke';
 $txt['saythanks_thanked'] = 'Folgende Mitglieder bedankten sich: ';
-$txt['saythanks_thankscount'] = 'Dankeschön';
+$txt['saythanks_thankscount'] = 'Dankeschön erhalten';
+$txt['saythanks_thanksgivencount'] = 'Dankeschön gegeben';
 $txt['saythanks_times'] = 'mal'; // e.g Thanked 7 times
 $txt['saythanks_withdraw_thanks'] = 'Danke entziehen';
 $txt['saythanks_settings'] = 'Say Thanks [MOD]';
