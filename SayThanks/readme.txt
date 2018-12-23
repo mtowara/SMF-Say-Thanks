@@ -26,6 +26,15 @@ Now the stats page and little icons next to the Say Thanks links should be worki
 
 [size=14pt]Change Log[/size]
 
+[b]1.4.0[/b]
+[list]
+[li]Fork from 1.3.6[/li]
+[li]Improved Postgres compability[/li]
+[li]Fix stat maintainance recount[/li]
+[li]Add thanks given stat[/li]
+[li]Should work with SMF 2.0.15[/li]
+[/list]
+
 [b]1.3.6[/b]
 [list]
 [li]Thanked posts page now linked on profile[/li]

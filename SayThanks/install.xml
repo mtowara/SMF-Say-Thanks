@@ -135,7 +135,7 @@ function ModifySayThanksSettings($return_config = false) {
 	}
 	
 	if (!empty($thank_counts)) {
-		$smcFunc['db_insert']('replace' ,
+		$smcFunc['db_insert']('insert' ,
 			'{db_prefix}messages_thanks_stats',
 			array(
 				'id_member' => 'int', 'thanks_count' => 'int'

@@ -3,8 +3,8 @@
  * Say Thanks
  *
  * @package SMF
- * @author kelvincoool
- * @copyright 2014 kelvincoool
+ * @author mtowara based on work by kelvincoool
+ * @copyright 2014 kelvincoool, 2018 mtowara
  * @license http://creativecommons.org/licenses/by/3.0 CC
  *
  * @version 1.3

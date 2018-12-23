@@ -3,11 +3,11 @@
  * Say Thanks
  *
  * @package SMF
- * @author kelvincoool
- * @copyright 2015 kelvincoool
+ * @author mtowara based on work by kelvincoool
+ * @copyright 2015 kelvincoool, 2018 mtowara
  * @license http://creativecommons.org/licenses/by/3.0 CC
  *
- * @version 1.3.4
+ * @version 1.4.0
  */
 
 // No Direct Access!
@@ -426,6 +426,7 @@ class SayThanks
 		else {
 			$concat = "GROUP_CONCAT(CONCAT('*', m2.id_member, '**', m2.real_name, '***') separator ', ') as thank_list";
 		}
+		// mtowara: make postgres compatible
 		while (true)
 		{
 			$request = $smcFunc['db_query']('', '
@@ -444,7 +445,10 @@ class SayThanks
 					AND ' . $range_limit) . '
 					AND {query_see_board}' . (!$modSettings['postmod_active'] || $context['user']['is_owner'] ? '' : '
 					AND t.approved = {int:is_approved} AND m.approved = {int:is_approved}') . '
-				GROUP BY m.id_msg
+				GROUP BY
+					b.id_board, b.name, c.id_cat, c.name, m.id_topic, m.id_msg,
+					t.id_member_started, t.id_first_msg, t.id_last_msg, m.body, m.smileys_enabled,
+					m.subject, m.poster_time, m.approved
 				ORDER BY m.id_msg ' . ($reverse ? 'ASC' : 'DESC') . '
 				LIMIT ' . $start . ', ' . $maxIndex,
 				array(
@@ -682,7 +686,10 @@ class SayThanks
 					AND ' . $range_limit) . '
 					AND {query_see_board}' . (!$modSettings['postmod_active'] || $context['user']['is_owner'] ? '' : '
 					AND t.approved = {int:is_approved} AND m.approved = {int:is_approved}') . '
-				GROUP BY m.id_msg
+				GROUP BY
+					b.id_board, b.name, c.id_cat, c.name, m.id_topic, m.id_msg,
+					t.id_member_started, t.id_first_msg, t.id_last_msg, m.body, m.smileys_enabled,
+					m.subject, m.poster_time, m.approved
 				ORDER BY m.id_msg ' . ($reverse ? 'ASC' : 'DESC') . '
 				LIMIT ' . $start . ', ' . $maxIndex,
 				array(

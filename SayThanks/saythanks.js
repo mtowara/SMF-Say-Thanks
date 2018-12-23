@@ -2,7 +2,7 @@
  * Say Thanks
  *
  * @package SMF
- * @author kelvincool
+ * @author mtowara based on work by kelvincool
  * @copyright 2015 kelvincool
  * @license http://creativecommons.org/licenses/by/3.0 CC
  *
