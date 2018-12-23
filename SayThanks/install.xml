@@ -1,0 +1,369 @@
+<?xml version="1.0"?>
+<!DOCTYPE modification SYSTEM "http://www.simplemachines.org/xml/modification">
+<modification xmlns="http://www.simplemachines.org/xml/modification" xmlns:smf="http://www.simplemachines.org/">
+	<id>kelvincool:say_thanks</id>
+	<version>1.3.6</version>
+	<file name="$themedir/Display.template.php">
+		<operation>
+			<search position="before"><![CDATA[<div class="signature" id="msg_', $message['id'], '_signature">', $message['member']['signature'], '</div>';]]></search>
+			<add><![CDATA[
+		/* Say Thanks mod start */
+		echo '<span id="thank_you_placeholder_', $message['id'], '" class="thank_you_hidden">&nbsp;</span>';
+		if (isset($context['message_thanks'][$message['id']]))
+			echo template_saythanks_thanker_list($message, $context['message_thanks'][$message['id']]['list']);
+		/* Say Thanks mod end */
+			]]></add>
+		</operation>
+		<operation>
+			<search position="replace"><![CDATA[		// If this is the first post, (#0) just say when it was posted - otherwise give the reply #.
+		if ($message['can_approve'] || ]]></search>
+			<add><![CDATA[		// If this is the first post, (#0) just say when it was posted - otherwise give the reply #.
+		if ($message['can_approve'] || SayThanks::checkCanThank($message) || ]]></add>
+		</operation>
+		<operation>
+			<search position="after"><![CDATA[// Can they reply? Have they turned on quick reply?]]></search>
+			<add><![CDATA[// Say Thanks button
+		global $user_info;
+		if (SayThanks::checkCanThank($message))
+			if (SayThanks::checkIfAlreadyThanked($message))
+				echo '
+									<li class="thank_you_button">', template_saythanks_default(array('id' => $message['id'], 'id_member' => $message['member']['id'])), '</li>';
+			else if (SayThanks::checkCanWithdrawThanks($message))
+				echo '
+									<li class="thank_you_button">', template_saythanks_withdraw(array('id' => $message['id'], 'id_member' => $message['member']['id'])), '</li>';
+		]]></add>
+		</operation>
+		<operation>
+			<search position="after"><![CDATA[// Is karma display enabled?  Total or +/-?]]></search>
+			<add><![CDATA[
+			/* Say Thanks mod start */
+			// Show how many thanks user has received.
+			if ($message['member']['thanks'] > 0 && empty($modSettings['saythanks_hide_thanks_count_on_post']))
+				echo '
+								<li class="thankscount"><a href="', $scripturl, '?action=profile;area=showposts;sa=thanked;u=', $message['member']['id'], '">', $txt['saythanks_thankscount'], ': ', $message['member']['thanks'], ' ', $txt['saythanks_times'] ,'</a></li>';
+			/* Say Thanks mod end */
+			]]></add>
+		</operation>
+	</file>
+	<file name="$sourcedir/ManageSettings.php">
+		<operation>
+			<search position="end" />
+			<add><![CDATA[
+// Say Thanks settings
+function ModifySayThanksSettings($return_config = false) {
+	global $txt, $scripturl, $context, $settings, $sc, $modSettings;
+	global $smcFunc;
+	if (empty($_POST['st_disable_on_boards'])) {
+		$_POST['st_disable_on_boards'] = array(-1);
+	}
+	$config_vars = array(
+		array('check', 'saythanks_withdraw_thanks_enable', 'label' => $txt['saythanks_withdraw_thanks_settings_desc']),
+		array('check', 'saythanks_hide_thanks_count_on_post', 'label' => $txt['saythanks_hide_thanks_count_on_post_settings_desc']),
+		array('check', 'saythanks_hide_thanks_count_in_profile', 'label' => $txt['saythanks_hide_thanks_count_in_profile_settings_desc']),
+		array('check', 'saythanks_hide_thanks_stats', 'label' => $txt['saythanks_hide_thanks_stats_settings_desc']),
+	);
+
+	$request = $smcFunc['db_query']('', '
+			SELECT id_board, name, child_level FROM {db_prefix}boards AS b ORDER BY board_order ASC
+	');
+	$boards = array();
+	$boardsKeys = array(-1 => '');
+	while ($row = $smcFunc['db_fetch_assoc']($request))
+	{
+		$boards[] = array($row['id_board'], str_repeat('&nbsp;&nbsp;', $row['child_level']) . $row['name']);
+		$boardsKeys[$row['id_board']] = str_repeat('&nbsp;&nbsp;', $row['child_level']) . $row['name'];
+	}
+	
+	$smcFunc['db_free_result']($request);
+	$disableBoards = array();
+
+	if (!empty($modSettings['st_disable_on_boards'])) {
+		$disableBoards = unserialize($modSettings['st_disable_on_boards']);
+	}
+	$config_vars[] = array('select', 'st_disable_on_boards', $boardsKeys, 'label' => $txt['saythanks_disable_on_boards'], 'multiple' => 1, 'data' => $boards, 'value' => $disableBoards, 'name' => 'st_disable_on_boards[]');
+	
+	if ($return_config)
+		return $config_vars;
+
+	$context['post_url'] = $scripturl . '?action=admin;area=modsettings;save;sa=saythanks';
+	$context['settings_title'] = $txt['saythanks_text'];
+
+	// Saving?
+	if (isset($_GET['save']))
+	{
+		checkSession();
+
+		$save_vars = $config_vars;
+
+		saveDBSettings($save_vars);
+
+		redirectexit('action=admin;area=modsettings;sa=saythanks');
+	}
+
+	prepareDBSettingContext($config_vars);
+}
+]]></add>
+		</operation>
+	</file>
+  <file name="$sourcedir/ManageMaintenance.php">
+		<operation>
+			<search position="before"><![CDATA[// Update all the basic statistics.]]></search>
+			<add><![CDATA[
+	/* Say Thanks mod start */
+	// Recount thank you statistics.
+	$smcFunc['db_query']('', '
+		TRUNCATE TABLE {db_prefix}messages_thanks_stats'
+	);
+
+	// Get counts of thanks received for each member.
+	$request = $smcFunc['db_query']('', '
+		SELECT COUNT(mts.id_member) AS thanks_count, m.id_member
+		FROM {db_prefix}messages_thanks mts, {db_prefix}messages m
+		WHERE m.id_msg = mts.id_msg AND m.id_member <> 0
+		GROUP BY m.id_member'
+	);
+
+	$thank_counts = array();
+	
+	// Update or insert counts as necessary.
+	while ($row = $smcFunc['db_fetch_assoc']($request))
+	{
+		$thank_counts[] = array(
+			'id_member' => $row['id_member'],
+			'thanks_count' => $row['thanks_count'],
+		);
+	}
+	
+	if (!empty($thank_counts)) {
+		$smcFunc['db_insert']('replace' ,
+			'{db_prefix}messages_thanks_stats',
+			array(
+				'id_member' => 'int', 'thanks_count' => 'int'
+			),
+			$thank_counts,
+			array('id_member')
+		);
+	}
+	
+	$smcFunc['db_free_result']($request);
+	/* Say Thanks mod end */
+]]></add>
+		</operation>
+	</file>
+  <file name="$sourcedir/Load.php">
+		<operation>
+			<search position="before"><![CDATA['local_time' => timeformat(time() + ($profile['time_offset'] - $user_info['time_offset']) * 3600, false),]]></search>
+			<add><![CDATA[
+		'thanks' => $profile['thanks'],]]></add>
+		</operation>
+		<operation>
+			<search position="before"><![CDATA[, mem.posts,]]></search>
+			<add><![CDATA[
+			mts.thanks_count AS thanks,]]></add>
+		</operation>
+		<operation>
+			<search position="before"><![CDATA[SELECT mem.*, IFNULL(a.id_attach, 0) AS id_attach, a.filename, a.attachment_type]]></search>
+			<add><![CDATA[, mts.thanks_count AS thanks]]></add>
+		</operation>
+		<operation>
+			<search position="before"><![CDATA[LEFT JOIN {db_prefix}attachments AS a ON (a.id_member = {int:id_member})]]></search>
+			<add><![CDATA[
+					LEFT JOIN {db_prefix}messages_thanks_stats AS mts ON (mts.id_member = {int:id_member})]]></add>
+		</operation>
+		<operation>
+			<search position="before"><![CDATA[		'permissions' => array(),]]></search>
+			<add><![CDATA[
+		'thanks' => isset($user_settings['thanks']) ? $user_settings['thanks'] : 0,]]></add>
+		</operation>
+		<operation>
+			<search position="after"><![CDATA[LEFT JOIN {db_prefix}attachments AS a ON (a.id_member = mem.id_member)]]></search>
+			<add><![CDATA[LEFT JOIN {db_prefix}messages_thanks_stats AS mts ON (mts.id_member = mem.id_member)
+			]]></add>
+		</operation>
+		<operation>
+			<search position="before"><![CDATA[, mem.ignore_boards, mem.warning,]]></search>
+			<add><![CDATA[
+			mts.thanks_count AS thanks,]]></add>
+		</operation>
+		<operation>
+			<search position="before"><![CDATA[LEFT JOIN {db_prefix}log_online AS lo ON (lo.id_member = mem.id_member)
+			LEFT JOIN {db_prefix}attachments AS a ON (a.id_member = mem.id_member)]]></search>
+			<add><![CDATA[
+			LEFT JOIN {db_prefix}messages_thanks_stats AS mts ON (mts.id_member = mem.id_member)]]></add>
+		</operation>
+	</file>
+	<file name="$sourcedir/Profile-View.php">
+		<operation>
+			<search position="after"><![CDATA[// Are we just viewing topics?]]></search>
+			<add><![CDATA[if (isset($_GET['sa']) && $_GET['sa'] == 'thanked')
+		return SayThanks::showThankedPosts($memID);
+if (isset($_GET['sa']) && $_GET['sa'] == 'thank')
+		return SayThanks::showThankByUserPosts($memID);
+		]]></add>
+		</operation>
+	</file>
+	<file name="$themedir/Profile.template.php">
+		<operation>
+			<search position="after"><![CDATA[// Only show the email address fully if it's not hidden - and we reveal the email.]]></search>
+			<add><![CDATA[/* Say Thanks mod start */
+	if ($context['member']['thanks'] > 0 && empty($modSettings['saythanks_hide_thanks_count_in_profile']))
+		echo '
+					<dt>', $txt['saythanks_thankscount'], ': </dt>
+					<dd><a href="', $scripturl, '?action=profile;area=showposts;sa=thanked;u=', $context['member']['id'], '">', $context['member']['thanks'], ' ', $txt['saythanks_times'], '</a></dd>';
+	/* Say Thanks mod end */
+		]]></add>
+		</operation>
+		<operation>
+			<search position="replace"><![CDATA[$post['body'], ']]></search>
+			<add><![CDATA[$post['body'];
+			if (array_key_exists('thank_list', $post)) {
+				echo template_saythanks_thanker_list($post, $post['thank_list']);
+			}
+			echo ']]></add>
+		</operation>
+	</file>
+	<file name="$sourcedir/Stats.php">
+		<operation>
+			<search position="after"><![CDATA[// Time online top 10.]]></search>
+			<add><![CDATA[
+	SayThanks::setStats();]]></add>
+		</operation>
+	</file>
+	<file name="$themedir/Stats.template.php" error="skip">
+		<operation>
+			<search position="after"><![CDATA[<br class="clear" />
+		<div class="flow_hidden">
+			<div class="cat_bar">
+				<h3 class="catbg">
+					<span class="ie6_header floatleft">
+						<img src="', $settings['images_url'], '/stats_history.gif" class="icon" alt="" /> ', $txt['forum_history'], ']]></search>
+			<add><![CDATA[';
+			if (empty($modSettings['saythanks_hide_thanks_stats'])) {
+			echo '
+			<div class="flow_hidden">
+				<div id="most_thanked">
+					<div class="title_bar">
+						<h4 class="titlebg">
+							<span class="ie6_header floatleft">
+								<img src="', $settings['images_url'], '/stats_posters.gif" class="icon" alt="" /> ', $txt['saythanks_most_thanked'], '
+							</span>
+						</h4>
+					</div>
+					<div class="windowbg2">
+						<span class="topslice"><span></span></span>
+						<div class="content">
+							<dl class="stats">';
+
+		foreach ($context['top_thanked'] as $poster)
+		{
+			echo '
+								<dt>
+									', $poster['link'], '
+								</dt>
+								<dd class="statsbar">';
+
+			if (!empty($poster['thanked_percent']))
+				echo '
+									<div class="bar" style="width: ', $poster['thanked_percent'] + 4, 'px;">
+										<div style="width: ', $poster['thanked_percent'], 'px;"></div>
+									</div>';
+
+			echo '
+									<span>', $poster['thanked_count'], '</span>
+								</dd>';
+		}
+
+		echo '
+							</dl>
+							<div class="clear"></div>
+						</div>
+						<span class="botslice"><span></span></span>
+					</div>
+				</div>
+				<div id="most_thanked_posts">
+					<div class="title_bar">
+						<h4 class="titlebg">
+							<span class="ie6_header floatleft">
+								<img src="', $settings['images_url'], '/stats_replies.gif" class="icon" alt="" /> ', $txt['saythanks_most_thanked_posts'], '
+							</span>
+						</h4>
+					</div>
+					<div class="windowbg2">
+						<span class="topslice"><span></span></span>
+						<div class="content">
+							<dl class="stats">';
+
+		foreach ($context['top_thanked_posts'] as $post)
+		{
+			echo '
+								<dt>
+									', $post['link'], '
+								</dt>
+								<dd class="statsbar">';
+
+			if (!empty($post['thanks_percent']))
+				echo '
+									<div class="bar" style="width: ', $post['thanks_percent'] + 4, 'px;">
+										<div style="width: ', $post['thanks_percent'], 'px;"></div>
+									</div>';
+
+			echo '
+									<span>', $post['thanks_count'], '</span>
+								</dd>';
+		}
+		echo '
+							</dl>
+							<div class="clear"></div>
+						</div>
+						<span class="botslice"><span></span></span>
+					</div>
+				</div>
+			</div>
+		</div>';
+		}
+		echo ']]></add>
+		</operation>
+	</file>
+	<file name="$themes_dir/core/Stats.template.php" error="skip">
+		<operation>
+			<search position="after"><![CDATA[				<td class="catbg" colspan="4"><strong>', $txt['forum_history'], '</strong></td>
+			</tr><tr>]]></search>
+			<add><![CDATA[				';
+			if (empty($modSettings['saythanks_hide_thanks_stats'])) {
+			echo '
+				<td class="catbg" colspan="2" width="50%"><strong>', $txt['saythanks_most_thanked'], '</strong></td>
+				<td class="catbg" colspan="2" width="50%"><strong>', $txt['saythanks_most_thanked_posts'], '</strong></td>
+			</tr><tr>
+				<td class="windowbg" width="20" valign="middle" align="center"><img src="', $settings['images_url'], '/stats_posters.gif" width="20" height="20" alt="" /></td>
+				<td class="windowbg2" width="50%" valign="top">
+					<table border="0" cellpadding="1" cellspacing="0" width="100%">';
+	foreach ($context['top_thanked'] as $poster)
+		echo '
+						<tr>
+							<td width="60%" valign="top">', $poster['link'], '</td>
+							<td width="20%" align="', $context['right_to_left'] ? 'right' : 'left', '" valign="top">', $poster['thanked_count'] > 0 ? '<img src="' . $settings['images_url'] . '/bar.gif" width="' . $poster['thanked_percent'] . '" height="15" alt="" />' : '&nbsp;', '</td>
+							<td width="20%" align="right" valign="top">', $poster['thanked_count'], '</td>
+						</tr>';
+	echo '
+					</table>
+				</td>
+				<td class="windowbg" width="20" valign="middle" align="center" nowrap="nowrap"><img src="', $settings['images_url'], '/stats_replies.gif" width="20" height="20" alt="" /></td>
+				<td class="windowbg2" width="50%" valign="top">
+					<table border="0" cellpadding="1" cellspacing="0" width="100%">';
+	foreach ($context['top_thanked_posts'] as $post)
+		echo '
+						<tr>
+							<td width="60%" valign="top">', $post['link'], '</td>
+							<td width="20%" align="', $context['right_to_left'] ? 'right' : 'left', '" valign="top">', $post['thanks_count'] > 0 ? '<img src="' . $settings['images_url'] . '/bar.gif" width="' . $post['thanks_percent'] . '" height="15" alt="" />' : '&nbsp;', '</td>
+							<td width="20%" align="right" valign="top" nowrap="nowrap">', $post['thanks_count'], '</td>
+						</tr>';
+	echo '
+					</table>
+				</td>
+			</tr><tr>';
+			}
+			echo '
+]]></add>
+		</operation>
+	</file>
+</modification>

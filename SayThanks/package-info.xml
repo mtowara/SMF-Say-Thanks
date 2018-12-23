@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<!DOCTYPE package-info SYSTEM "http://www.simplemachines.org/xml/package-info">
+<package-info xmlns="http://www.simplemachines.org/xml/package-info" xmlns:smf="http://www.simplemachines.org/">
+	<id>multistars:say_thanks</id>
+	<name>Say Thanks</name>
+	<version>1.3.6</version>
+	<type>modification</type>	
+	
+	<install for="2.0-2.0.99">
+		<readme parsebbc="true">readme.txt</readme>
+		<database>add_settings.php</database>
+		<require-file name="SayThanks.php" destination="$sourcedir">Install the core Say Thanks file</require-file>
+		<require-file name="thank.png" destination="$imagesdir/theme">Copy icon</require-file>
+		<require-file name="thanks_error.png" destination="$imagesdir">Copy icon</require-file>
+		<require-file name="thanks_loading.gif" destination="$imagesdir">Copy icon</require-file>
+		<require-file name="thanks_thanked.png" destination="$imagesdir">Copy icon</require-file>
+		<require-file name="SayThanks.template.php" destination="$themedir">Install Say Thanks template file</require-file>
+		<require-file name="saythanks.css" destination="$themedir/css">Install Say Thanks style sheet</require-file>
+		<require-file name="core/SayThanks.template.php" destination="$themes_dir/core">Install Say Thanks core template file</require-file>
+		<require-file name="core/saythanks.css" destination="$themes_dir/core/css">Install Say Thanks style sheet</require-file>
+		<require-file name="saythanks.js" destination="$themedir/scripts">Install Say Thanks js file</require-file>
+		<modification type="file" format="xml">install.xml</modification>
+		<modification type="file" format="xml">languages.xml</modification>
+		<modification type="file" format="xml">languages.russian.xml</modification>
+		<redirect url="?action=admin;area=modsettings;sa=saythanks">redirect.txt</redirect>
+	</install>
+	
+	<uninstall for="2.0-2.0.99">
+		<code>remove_settings.php</code>
+		<remove-file name="$sourcedir/SayThanks.php" />
+		<remove-file name="$imagesdir/theme/thank.png" />
+		<remove-file name="$imagesdir/thanks_error.png" />
+		<remove-file name="$imagesdir/thanks_loading.gif" />
+		<remove-file name="$imagesdir/thanks_thanked.png" />
+		<remove-file name="$themedir/SayThanks.template.php" />
+		<remove-file name="$themedir/css/saythanks.css" />
+		<remove-file name="$themes_dir/core/SayThanks.template.php" />
+		<remove-file name="$themes_dir/core/css/saythanks.css" />
+		<remove-file name="$themedir/scripts/saythanks.js" />
+		<modification type="file" format="xml" reverse="true">languages.xml</modification>
+		<modification type="file" format="xml" reverse="true">languages.russian.xml</modification>
+		<modification type="file" format="xml" reverse="true">install.xml</modification>
+	</uninstall>
+</package-info>

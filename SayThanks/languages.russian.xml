@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<!DOCTYPE modification SYSTEM "http://www.simplemachines.org/xml/modification">
+<modification xmlns="http://www.simplemachines.org/xml/modification" xmlns:smf="http://www.simplemachines.org/">
+	<id>kelvincool:say_thanks</id>
+	<version>1.3.3</version>
+<file name="$languagedir/Modifications.russian.php" error="skip">
+		<operation>
+			<search position="end"></search>
+			<add><![CDATA[
+// Say Thanks Mod
+// Russian translation by Sergey (http://www.za40.org)
+$txt['saythanks_text'] = 'Сказать Спасибо';
+$txt['saythanks_thanked'] = 'Пользователи, которые поблагодарили этот пост: ';
+$txt['saythanks_thankscount'] = 'Поблагодарили';
+$txt['saythanks_times'] = 'раз(а)'; 
+$txt['saythanks_withdraw_thanks'] = 'Отменить Спасибо';
+$txt['saythanks_settings'] = 'Сказать Спасибо';
+$txt['saythanks_withdraw_thanks_settings_desc'] = 'Включить возможность отмены благодарности';
+$txt['saythanks_hide_thanks_count_on_post_settings_desc'] = 'Скрыть счётчик благодарностей рядом с сообщением';
+$txt['saythanks_hide_thanks_count_in_profile_settings_desc'] = 'Скрыть благодарности в профилях пользователей';
+$txt['saythanks_hide_thanks_stats_settings_desc'] = 'Скрыть рейтинг благодарностей';
+$txt['saythanks_show_thanked_posts'] = 'Сообщения, которые понравились пользователям';
+$txt['saythanks_show_thank_by_user_posts'] = 'Сообщения, за которые поблагодарил пользователь';
+$txt['saythanks_most_thanked'] = 'Топ 10 пользователей, получивших Спасибо';
+$txt['saythanks_most_thanks_given'] = 'Топ 10 Спасибо';
+$txt['saythanks_most_thanked_posts'] = 'Топ 10 сообщений, отмеченных Спасибо';
+$txt['saythanks_disable_on_boards'] = 'Отключить в разделах';
+$txt['saythanks_title'] = 'Скрыть подсчёт поблагодаривших';
+$txt['saythanks_hide_text'] = 'Вам это нужно {thanks_needed}, спасибо. Мы нуждаемся в вас {thanks_left}, спасибо.';
+$txt['saythanks_desc'] = 'Сокрытие содержимого сообщения в зависимости от числа поблагодаривших.';
+$txt['saythanks_thanked_title'] = 'Скрыть от поблагодаривших';
+$txt['saythanks_hide_thanked_text'] = 'Чтобы увидеть содержимое, вы должны вначале нажать Спасибо.';
+$txt['saythanks_thanked_desc'] = 'Сокрытие содержимого сообщения в зависимости от числа поблагодаривших.';
+$txt['saythanks_input_title'] = 'Подсчёт минимума поблагодаривших';
+$txt['saythanks_ajax_success'] = 'Спасибо';
+$txt['saythanks_ajax_loading'] = 'Спасибо...';
+$txt['saythanks_ajax_error'] = 'Ошибка во время нажатия Спасибо';
+$txt['saythanks_ajax_guest'] = '<a href="' . $scripturl . '?action=login">Войти, чтобы поблагодарить это сообщение</a>';
+// Say Thanks Mod
+]]></add>
+		</operation>
+	</file>
+</modification>

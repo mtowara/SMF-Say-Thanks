@@ -1,0 +1,437 @@
+﻿<?xml version="1.0"?>
+<!DOCTYPE modification SYSTEM "http://www.simplemachines.org/xml/modification">
+<modification xmlns="http://www.simplemachines.org/xml/modification" xmlns:smf="http://www.simplemachines.org/">
+	<id>kelvincool:say_thanks</id>
+	<version>1.3.4</version>
+	<file name="$themedir/languages/Modifications.english.php">
+		<operation>
+			<search position="end" />
+			<add><![CDATA[
+// Say Thanks Mod
+$txt['saythanks_text'] = 'Say Thanks';
+$txt['saythanks_thanked'] = 'The following users thanked this post: ';
+$txt['saythanks_thankscount'] = 'Thanked';
+$txt['saythanks_times'] = 'times'; // e.g Thanked 7 times
+$txt['saythanks_withdraw_thanks'] = 'Withdraw Thanks';
+$txt['saythanks_settings'] = 'Say Thanks';
+$txt['saythanks_withdraw_thanks_settings_desc'] = 'Enable withdraw thanks option';
+$txt['saythanks_hide_thanks_count_on_post_settings_desc'] = 'Hide thanks count on post';
+$txt['saythanks_hide_thanks_count_in_profile_settings_desc'] = 'Hide thanks count in profile';
+$txt['saythanks_hide_thanks_stats_settings_desc'] = 'Hide top ten thanks stats';
+$txt['saythanks_show_thanked_posts'] = 'Thanked Posts'; // Tab title for showing all your posts that have been thanked
+$txt['saythanks_show_thank_by_user_posts'] = 'Posts Thanked By User '; // Tab title for showing all the posts that you have thanked
+$txt['saythanks_most_thanked'] = 'Top 10 Thanked Users';
+$txt['saythanks_most_thanks_given'] = 'Top 10 Thankers';
+$txt['saythanks_most_thanked_posts'] = 'Top 10 Thanked Posts';
+$txt['saythanks_disable_on_boards'] = 'Disable on individual boards';
+$txt['saythanks_title'] = 'Hide by thanked count';
+$txt['saythanks_hide_text'] = 'You require at least {thanks_needed} thanks, you need another {thanks_left} thanks.';
+$txt['saythanks_desc'] = 'Hides post content based on thanked count.';
+$txt['saythanks_thanked_title'] = 'Hide by thanked';
+$txt['saythanks_hide_thanked_text'] = 'You must thank this post to see the content.';
+$txt['saythanks_thanked_desc'] = 'Hides post content based on thanked count.';
+$txt['saythanks_input_title'] = 'Minimum thanked count';
+$txt['saythanks_ajax_success'] = 'Thanked';
+$txt['saythanks_ajax_loading'] = 'Thanking...';
+$txt['saythanks_ajax_error'] = 'There was an error while thanking';
+$txt['saythanks_ajax_guest'] = '<a href="' . $scripturl . '?action=login">Login to thank this post</a>';
+// Say Thanks Mod
+]]></add>
+		</operation>
+	</file>
+		
+	<file name="$languagedir/Modifications.norwegian.php" error="skip">
+		<operation>
+			<search position="end"></search>
+			<add><![CDATA[
+// Say Thanks Mod
+// Norwegian translation by Svendsen
+$txt['saythanks_text'] = 'Si Takk';
+$txt['saythanks_thanked'] = 'Disse har takket for dette innlegget: ';
+$txt['saythanks_thankscount'] = 'Takket';
+$txt['saythanks_times'] = 'ganger'; // e.g Thanked 7 times
+$txt['saythanks_withdraw_thanks'] = 'Ta tilbake takk';
+$txt['saythanks_settings'] = 'Si Takk';
+$txt['saythanks_withdraw_thanks_settings_desc'] = 'Aktiver: ta tilbake Takk';
+$txt['saythanks_hide_thanks_count_on_post_settings_desc'] = 'Skjul antall Takk i Emne.';
+$txt['saythanks_hide_thanks_count_in_profile_settings_desc'] = 'Skjul antall Takk i Profil.';
+$txt['saythanks_hide_thanks_stats_settings_desc'] = 'Skjul topp 10 Takk statestikk.';
+$txt['saythanks_show_thanked_posts'] = 'Emner: Takk mottatt.'; // Tab title for showing all your posts that have been thanked
+$txt['saythanks_show_thank_by_user_posts'] = 'Emner Takket av bruker.'; // Tab title for showing all the posts that you have thanked
+$txt['saythanks_most_thanked'] = 'Topp 10 brukere Takket.';
+$txt['saythanks_most_thanks_given'] = 'Topp 10 Takkere.';
+$txt['saythanks_most_thanked_posts'] = 'Top 10 Poster Takket.';
+$txt['saythanks_disable_on_boards'] = 'Skru av i enkelte underforum.';
+$txt['saythanks_title'] = 'Skjul Takket Av Teller.';
+$txt['saythanks_hide_text'] = 'Du behøver minst {thanks_needed} takk, du mangler {thanks_left} takk.';
+$txt['saythanks_desc'] = 'Skjuler innhold i post, bassert på takk.';
+$txt['saythanks_thanked_title'] = 'Skjul takket av.';
+$txt['saythanks_hide_thanked_text'] = 'Du må takke innlegget, for å se det..';
+$txt['saythanks_thanked_desc'] = 'Skjuler innhold i post, bassert på takk.';
+$txt['saythanks_input_title'] = 'Minimum antall takk';
+$txt['saythanks_ajax_success'] = 'Innlegg Takket';
+$txt['saythanks_ajax_loading'] = 'Takker...';
+$txt['saythanks_ajax_error'] = 'En feil oppsto, når du takket.';
+$txt['saythanks_ajax_guest'] = '<a href="' . $scripturl . '?action=login">Logg inn for å takke dette innlegget.</a>';
+// Say Thanks Mod
+]]></add>
+		</operation>
+	</file>
+
+	<file name="$languagedir/Modifications.norwegian-utf8.php" error="skip">
+		<operation>
+			<search position="end"></search>
+			<add><![CDATA[
+// Say Thanks Mod
+// Norwegian translation by Svendsen
+$txt['saythanks_text'] = 'Si Takk';
+$txt['saythanks_thanked'] = 'Følgende brukere, har takket for dette innlegget: ';
+$txt['saythanks_thankscount'] = 'Takket';
+$txt['saythanks_times'] = 'ganger'; // e.g Thanked 7 times
+$txt['saythanks_withdraw_thanks'] = 'Ta tilbake takk';
+$txt['saythanks_settings'] = 'Si Takk';
+$txt['saythanks_withdraw_thanks_settings_desc'] = 'Aktivere å ta tilbake Takk';
+$txt['saythanks_hide_thanks_count_on_post_settings_desc'] = 'Skjul antall Takk i Emne.';
+$txt['saythanks_hide_thanks_count_in_profile_settings_desc'] = 'Skjul antall Takk i Profil.';
+$txt['saythanks_hide_thanks_stats_settings_desc'] = 'Skjul topp 10 Takk statestikk.';
+$txt['saythanks_show_thanked_posts'] = 'Emner Takket.'; // Tab title for showing all your posts that have been thanked
+$txt['saythanks_show_thank_by_user_posts'] = 'Emner Takket av bruker.'; // Tab title for showing all the posts that you have thanked
+$txt['saythanks_most_thanked'] = 'Topp 10 brukere Takket.';
+$txt['saythanks_most_thanks_given'] = 'Topp 10 Takkere.';
+$txt['saythanks_most_thanked_posts'] = 'Top 10 Poster Takket.';
+$txt['saythanks_disable_on_boards'] = 'Skru av på enkelte underforum.';
+$txt['saythanks_title'] = 'Skjul Takket Av Teller.';
+$txt['saythanks_hide_text'] = 'Du behøver minst {thanks_needed} takk, du mangler {thanks_left} takk.';
+$txt['saythanks_desc'] = 'Skjuler innhold i post, bassert på takk.';
+$txt['saythanks_thanked_title'] = 'Skjul takket av.';
+$txt['saythanks_hide_thanked_text'] = 'Du må takke innlegget, for å se det..';
+$txt['saythanks_thanked_desc'] = 'Skjuler innhold i post, bassert på takk.';
+$txt['saythanks_input_title'] = 'Minimum antall takk';
+$txt['saythanks_ajax_success'] = 'Innlegg Takket';
+$txt['saythanks_ajax_loading'] = 'Takker...';
+$txt['saythanks_ajax_error'] = 'En feil oppsto, når du takket.';
+$txt['saythanks_ajax_guest'] = '<a href="' . $scripturl . '?action=login">Logg inn for å takke dette innlegget.</a>';
+// Say Thanks Mod
+]]></add>
+		</operation>
+	</file>
+	
+	<file name="$languagedir/Modifications.croatian.php" error="skip">
+		<operation>
+			<search position="end"></search>
+			<add><![CDATA[
+// Say Thanks Mod
+// Croatian translation by ameo and anonymous
+$txt['saythanks_text'] = 'Zahvali';
+$txt['saythanks_thanked'] = 'Sljedeći korisnici su zahvalili na ovom postu: ';
+$txt['saythanks_thankscount'] = 'Primljena zahvala';
+$txt['saythanks_times'] = 'puta'; // e.g Thanked 7 times
+$txt['saythanks_withdraw_thanks'] = 'Povuci zahvalu';
+$txt['saythanks_settings'] = 'Zahvali';
+$txt['saythanks_withdraw_thanks_settings_desc'] = 'Omogući mogućnost povlačenja zahvale';
+$txt['saythanks_hide_thanks_count_on_post_settings_desc'] = 'Sakrij broj zahvala na postovima';
+$txt['saythanks_hide_thanks_count_in_profile_settings_desc'] = 'Sakrij broj zahvala u profilu';
+$txt['saythanks_hide_thanks_stats_settings_desc'] = 'Sakrij statistiku za 10 najboljih zahvala';
+$txt['saythanks_show_thanked_posts'] = 'Postovi sa zahvalama'; // Tab title for showing all your posts that have been thanked
+$txt['saythanks_most_thanked'] = 'Top 10 korisnika s najviše zahvala';
+$txt['saythanks_most_thanks_given'] = 'Top 10 korisnika s najviše danih zahvala';
+$txt['saythanks_most_thanked_posts'] = 'Top 10 postova s najviše zahvala';
+$txt['saythanks_disable_on_boards'] = 'Onemogući na individualnoj rubrici';
+$txt['saythanks_title'] = 'Sakrij prema broju zahvala';
+$txt['saythanks_hide_text'] = 'Potrebno vam je još najmanje {thanks_needed} zahvala, traba vam {thanks_left} zahvala.';
+$txt['saythanks_desc'] = 'Sakriva sadržaj posta bazirano na broju zahvala.';
+$txt['saythanks_thanked_title'] = 'Skriveno prema zahvalama';
+$txt['saythanks_hide_thanked_text'] = 'Morate zahvaliti na ovom postu da bi ste vidjeli sadržaj.';
+$txt['saythanks_thanked_desc'] = 'Sakriva sadržaj posta bazirano na broju zahvala.';
+$txt['saythanks_input_title'] = 'Minimalni broj zahvala';
+$txt['saythanks_ajax_success'] = 'Zahvala';
+$txt['saythanks_ajax_loading'] = 'Zahvaljuješ...';
+$txt['saythanks_ajax_error'] = 'Desila se greška prilikom zahvaljivanja';
+$txt['saythanks_ajax_guest'] = '<a href="' . $scripturl . '?action=login">Prijavite se kako bi ste mogli zahvaliti na ovom postu</a>';
+// Say Thanks Mod
+]]></add>
+		</operation>
+	</file>
+	<file name="$languagedir/Modifications.italian.php" error="skip">
+		<operation>
+			<search position="end"></search>
+			<add><![CDATA[
+// Say Thanks Mod
+// Italian translation by ♦ Ninja ZX-10RR ♦ , formerly known as Flavio93Zena (http://www.simplemachines.org/community/index.php?action=profile;area=summary;u=394309)
+$txt['saythanks_text'] = 'Ringrazia';
+$txt['saythanks_thanked'] = 'I seguenti utenti hanno ringraziato questo post:';
+$txt['saythanks_thankscount'] = 'Ringraziato';
+$txt['saythanks_times'] = 'volte';
+$txt['saythanks_most_thanked'] = 'I 10 utenti pi� ringraziati';
+$txt['saythanks_most_thanks_given'] = 'I 10 utenti che hanno ringraziato di pi�';
+$txt['saythanks_withdraw_thanks_settings_desc'] = 'Abilita l\'opzione per annullare il ringraziamento';
+$txt['saythanks_withdraw_thanks'] = 'Annulla ringraziamento';
+$txt['saythanks_hide_thanks_count_on_post_settings_desc'] = 'Nascondi il contatore dei ringraziamenti nei post';
+$txt['saythanks_hide_thanks_count_in_profile_settings_desc'] = 'Nascondi il contatore dei ringraziamenti nel profilo';
+$txt['saythanks_hide_thanks_stats_settings_desc'] = 'Nascondi le statistiche degli utenti che hanno ringraziato maggiormente o che sono stati ringraziati';
+$txt['saythanks_show_thanked_posts'] = 'Post ringraziati'; // Tab title for showing all your posts that have been thanked
+// Say Thanks Mod
+]]></add>
+		</operation>
+	</file>
+
+	<file name="$languagedir/Modifications.german.php" error="skip">
+		<operation>
+			<search position="end"></search>
+			<add><![CDATA[
+// Say Thanks Mod
+//German translation for Ver 1.3.1 by larry007 , (http://www.simplemachines.org/community/index.php?action=profile;area=summary;u=130706)
+$txt['saythanks_text'] = 'Sag Danke';
+$txt['saythanks_thanked'] = 'Folgende Mitglieder bedankten sich: ';
+$txt['saythanks_thankscount'] = 'DankeschÃ¶n';
+$txt['saythanks_times'] = 'mal'; // e.g Thanked 7 times
+$txt['saythanks_withdraw_thanks'] = 'Danke entziehen';
+$txt['saythanks_settings'] = 'Say Thanks [MOD]';
+$txt['saythanks_withdraw_thanks_settings_desc'] = 'Aktiviere "Danksagung entziehen"';
+$txt['saythanks_hide_thanks_count_on_post_settings_desc'] = 'Verstecke Anzahl der Danksagung im Beitrag';
+$txt['saythanks_hide_thanks_count_in_profile_settings_desc'] = 'Verstecke Anzahl der Danksagung im Profil';
+$txt['saythanks_hide_thanks_stats_settings_desc'] = 'Verstecke TOP 10 in der Statistik';
+$txt['saythanks_show_thanked_posts'] = 'Danksagungen'; // Tab title for showing all your posts that have been thanked
+$txt['saythanks_most_thanked'] = 'Top 10 bedankte Mitglieder';
+$txt['saythanks_most_thanks_given'] = 'Top 10 Danksager';
+$txt['saythanks_disable_on_boards'] = 'Deaktiviere in individuellen Boards';
+$txt['saythanks_title'] = 'Verberge nach Anzahl der Bedankungen';
+$txt['saythanks_hide_text'] = 'Du brauchst eine bestimmte Anzahl von {thanks_needed} Bedankungen, du brachst noch {thanks_left} Bedankungen.';
+$txt['saythanks_desc'] = 'Verstecke Beitragsinhalt abhÃ¤ngig von der Anzahl der gemachten Bedankungen.';
+$txt['saythanks_thanked_title'] = 'Verberge bei DankeschÃ¶n';
+$txt['saythanks_hide_thanked_text'] = 'Du musst dich Bedanken um den Beitrag zu sehen.';
+$txt['saythanks_thanked_desc'] = 'Verstecke Beitragsinhalt abhÃ¤ngig von der Anzahl der gemachten Bedankungen.';
+$txt['saythanks_input_title'] = 'Minimum an DankeschÃ¶n Anzahl';
+$txt['saythanks_ajax_success'] = 'Bedankt';
+$txt['saythanks_ajax_loading'] = 'Bedanken...';
+$txt['saythanks_ajax_error'] = 'Beim Bedanken trat ein Fehler auf';
+$txt['saythanks_ajax_guest'] = '<a href="' . $scripturl . '?action=login">Zum Bedanken des Beitrages musst du Eingeloggt sein</a>';
+// Say Thanks Mod
+]]></add>
+		</operation>
+	</file>
+	
+	<file name="$languagedir/Modifications.german-utf8.php" error="skip">
+		<operation>
+			<search position="end"></search>
+			<add><![CDATA[
+// Say Thanks Mod
+//German translation for Ver 1.3.1 by larry007 , (http://www.simplemachines.org/community/index.php?action=profile;area=summary;u=130706)
+$txt['saythanks_text'] = 'Sag Danke';
+$txt['saythanks_thanked'] = 'Folgende Mitglieder bedankten sich: ';
+$txt['saythanks_thankscount'] = 'Dankeschön';
+$txt['saythanks_times'] = 'mal'; // e.g Thanked 7 times
+$txt['saythanks_withdraw_thanks'] = 'Danke entziehen';
+$txt['saythanks_settings'] = 'Say Thanks [MOD]';
+$txt['saythanks_withdraw_thanks_settings_desc'] = 'Aktiviere "Danksagung entziehen"';
+$txt['saythanks_hide_thanks_count_on_post_settings_desc'] = 'Verstecke Anzahl der Danksagung im Beitrag';
+$txt['saythanks_hide_thanks_count_in_profile_settings_desc'] = 'Verstecke Anzahl der Danksagung im Profil';
+$txt['saythanks_hide_thanks_stats_settings_desc'] = 'Verstecke TOP 10 in der Statistik';
+$txt['saythanks_show_thanked_posts'] = 'Danksagungen'; // Tab title for showing all your posts that have been thanked
+$txt['saythanks_most_thanked'] = 'Top 10 bedankte Mitglieder';
+$txt['saythanks_most_thanks_given'] = 'Top 10 Danksager';
+$txt['saythanks_disable_on_boards'] = 'Deaktiviere in individuellen Boards';
+$txt['saythanks_title'] = 'Verberge nach Anzahl der Bedankungen';
+$txt['saythanks_hide_text'] = 'Du brauchst eine bestimmte Anzahl von {thanks_needed} Bedankungen, du brachst noch {thanks_left} Bedankungen.';
+$txt['saythanks_desc'] = 'Verstecke Beitragsinhalt abhängig von der Anzahl der gemachten Bedankungen.';
+$txt['saythanks_thanked_title'] = 'Verberge bei Dankeschön';
+$txt['saythanks_hide_thanked_text'] = 'Du musst dich Bedanken um den Beitrag zu sehen.';
+$txt['saythanks_thanked_desc'] = 'Verstecke Beitragsinhalt abhÃ¤ngig von der Anzahl der gemachten Bedankungen.';
+$txt['saythanks_input_title'] = 'Minimum an Dankeschön Anzahl';
+$txt['saythanks_ajax_success'] = 'Bedankt';
+$txt['saythanks_ajax_loading'] = 'Bedanken...';
+$txt['saythanks_ajax_error'] = 'Beim Bedanken trat ein Fehler auf';
+$txt['saythanks_ajax_guest'] = '<a href="' . $scripturl . '?action=login">Zum Bedanken des Beitrages musst du Eingeloggt sein</a>';
+// Say Thanks Mod
+]]></add>
+		</operation>
+	</file>
+	
+	<file name="$languagedir/Modifications.persian.php" error="skip">
+		<operation>
+			<search position="end"></search>
+			<add><![CDATA[
+// Say Thanks Mod
+// Persian translation by roza
+$txt['saythanks_text'] = 'تشکر';
+$txt['saythanks_thanked'] = 'کاربرانی که از این پست تشکر کرده اند: ';
+$txt['saythanks_thankscount'] = 'تشکر شده';
+$txt['saythanks_times'] = 'بار'; // e.g Thanked 7 times
+$txt['saythanks_withdraw_thanks'] = 'عدم تشکر';
+$txt['saythanks_settings'] = 'تشکر';
+$txt['saythanks_withdraw_thanks_settings_desc'] = 'فعالسازی گزینۀ عدم تشکر';
+$txt['saythanks_hide_thanks_count_on_post_settings_desc'] = 'مخفی کردن شمارش تشکر ها در پست';
+$txt['saythanks_hide_thanks_count_in_profile_settings_desc'] = 'مخفی کردن شمارش تشکرها در نمایه';
+$txt['saythanks_hide_thanks_stats_settings_desc'] = 'مخفی کردن 10 تشکر شدۀ برتر';
+$txt['saythanks_show_thanked_posts'] = 'فهرست پست های تشکر شدۀ شما'; // Tab title for showing all your posts that have been thanked
+$txt['saythanks_show_thank_by_user_posts'] = 'فهرست پست هایی که شما تشکر کرده اید'; // Tab title for showing all the posts that you have thanked
+$txt['saythanks_most_thanked'] = 'تشکر شده های برتر';
+$txt['saythanks_most_thanks_given'] = 'تشکر کننده های برتر';
+$txt['saythanks_most_thanked_posts'] = '10 پست بیشتر تشکر شده';
+$txt['saythanks_disable_on_boards'] = 'غیرفعال کردن در تالارهای خاص';
+$txt['saythanks_title'] = 'مخفی سازی براساس تعداد تشکر شده';
+$txt['saythanks_hide_text'] = 'شما حداقل به {thanks_needed} تشکر دیگر نیاز دارید. {thanks_left} تشکر دیگر باقی مانده!';
+$txt['saythanks_desc'] = 'مخفی کردن محتوای پست براساس تعداد تشکر دریافتی';
+$txt['saythanks_thanked_title'] = 'مخفی براساس تشکر دریافتی';
+$txt['saythanks_hide_thanked_text'] = 'برای دیدن محتوای این پست ابتدا باید از آن تشکر کنید!';
+$txt['saythanks_thanked_desc'] = 'مخفی کردن محتوای پست براساس تعداد تشکر دریافتی';
+$txt['saythanks_input_title'] = 'حداقل تعداد تشکر دریافتی';
+$txt['saythanks_ajax_success'] = 'متشکرم!';
+$txt['saythanks_ajax_loading'] = 'درحال تشکر...!';
+$txt['saythanks_ajax_error'] = 'خطایی در هنگام تشکر کردن رخ داد!';
+$txt['saythanks_ajax_guest'] = '<a href="' . $scripturl . '?action=login">برای تشکر از این پست لطفاً وارد شوید</a>';
+// Say Thanks Mod
+]]></add>
+		</operation>
+	</file>
+	
+	<file name="$languagedir/Modifications.persian-utf8.php" error="skip">
+		<operation>
+			<search position="end"></search>
+			<add><![CDATA[
+// Say Thanks Mod
+// Persian translation by roza
+$txt['saythanks_text'] = 'تشکر';
+$txt['saythanks_thanked'] = 'کاربرانی که از این پست تشکر کرده اند: ';
+$txt['saythanks_thankscount'] = 'تشکر شده';
+$txt['saythanks_times'] = 'بار'; // e.g Thanked 7 times
+$txt['saythanks_withdraw_thanks'] = 'عدم تشکر';
+$txt['saythanks_settings'] = 'تشکر';
+$txt['saythanks_withdraw_thanks_settings_desc'] = 'فعالسازی گزینۀ عدم تشکر';
+$txt['saythanks_hide_thanks_count_on_post_settings_desc'] = 'مخفی کردن شمارش تشکر ها در پست';
+$txt['saythanks_hide_thanks_count_in_profile_settings_desc'] = 'مخفی کردن شمارش تشکرها در نمایه';
+$txt['saythanks_hide_thanks_stats_settings_desc'] = 'مخفی کردن 10 تشکر شدۀ برتر';
+$txt['saythanks_show_thanked_posts'] = 'فهرست پست های تشکر شدۀ شما'; // Tab title for showing all your posts that have been thanked
+$txt['saythanks_show_thank_by_user_posts'] = 'فهرست پست هایی که شما تشکر کرده اید'; // Tab title for showing all the posts that you have thanked
+$txt['saythanks_most_thanked'] = 'تشکر شده های برتر';
+$txt['saythanks_most_thanks_given'] = 'تشکر کننده های برتر';
+$txt['saythanks_most_thanked_posts'] = '10 پست بیشتر تشکر شده';
+$txt['saythanks_disable_on_boards'] = 'غیرفعال کردن در تالارهای خاص';
+$txt['saythanks_title'] = 'مخفی سازی براساس تعداد تشکر شده';
+$txt['saythanks_hide_text'] = 'شما حداقل به {thanks_needed} تشکر دیگر نیاز دارید. {thanks_left} تشکر دیگر باقی مانده!';
+$txt['saythanks_desc'] = 'مخفی کردن محتوای پست براساس تعداد تشکر دریافتی';
+$txt['saythanks_thanked_title'] = 'مخفی براساس تشکر دریافتی';
+$txt['saythanks_hide_thanked_text'] = 'برای دیدن محتوای این پست ابتدا باید از آن تشکر کنید!';
+$txt['saythanks_thanked_desc'] = 'مخفی کردن محتوای پست براساس تعداد تشکر دریافتی';
+$txt['saythanks_input_title'] = 'حداقل تعداد تشکر دریافتی';
+$txt['saythanks_ajax_success'] = 'متشکرم!';
+$txt['saythanks_ajax_loading'] = 'درحال تشکر...!';
+$txt['saythanks_ajax_error'] = 'خطایی در هنگام تشکر کردن رخ داد!';
+$txt['saythanks_ajax_guest'] = '<a href="' . $scripturl . '?action=login">برای تشکر از این پست لطفاً وارد شوید</a>';
+// Say Thanks Mod
+]]></add>
+		</operation>
+	</file>
+	
+	<file name="$languagedir/Modifications.russian-utf8.php" error="skip">
+		<operation>
+			<search position="end"></search>
+			<add><![CDATA[
+// Say Thanks Mod
+// Russian translation by Sergey (http://www.za40.org)
+$txt['saythanks_text'] = 'Сказать Спасибо';
+$txt['saythanks_thanked'] = 'Пользователи, которые поблагодарили этот пост: ';
+$txt['saythanks_thankscount'] = 'Поблагодарили';
+$txt['saythanks_times'] = 'раз(а)'; 
+$txt['saythanks_withdraw_thanks'] = 'Отменить Спасибо';
+$txt['saythanks_settings'] = 'Сказать Спасибо';
+$txt['saythanks_withdraw_thanks_settings_desc'] = 'Включить возможность отмены благодарности';
+$txt['saythanks_hide_thanks_count_on_post_settings_desc'] = 'Скрыть счётчик благодарностей рядом с сообщением';
+$txt['saythanks_hide_thanks_count_in_profile_settings_desc'] = 'Скрыть благодарности в профилях пользователей';
+$txt['saythanks_hide_thanks_stats_settings_desc'] = 'Скрыть рейтинг благодарностей';
+$txt['saythanks_show_thanked_posts'] = 'Сообщения, которые понравились пользователям';
+$txt['saythanks_show_thank_by_user_posts'] = 'Сообщения, за которые поблагодарил пользователь';
+$txt['saythanks_most_thanked'] = 'Топ 10 пользователей, получивших Спасибо';
+$txt['saythanks_most_thanks_given'] = 'Топ 10 Спасибо';
+$txt['saythanks_most_thanked_posts'] = 'Топ 10 сообщений, отмеченных Спасибо';
+$txt['saythanks_disable_on_boards'] = 'Отключить в разделах';
+$txt['saythanks_title'] = 'Скрыть подсчёт поблагодаривших';
+$txt['saythanks_hide_text'] = 'Вам это нужно {thanks_needed}, спасибо. Мы нуждаемся в вас {thanks_left}, спасибо.';
+$txt['saythanks_desc'] = 'Сокрытие содержимого сообщения в зависимости от числа поблагодаривших.';
+$txt['saythanks_thanked_title'] = 'Скрыть от поблагодаривших';
+$txt['saythanks_hide_thanked_text'] = 'Чтобы увидеть содержимое, вы должны вначале нажать Спасибо.';
+$txt['saythanks_thanked_desc'] = 'Сокрытие содержимого сообщения в зависимости от числа поблагодаривших.';
+$txt['saythanks_input_title'] = 'Подсчёт минимума поблагодаривших';
+$txt['saythanks_ajax_success'] = 'Спасибо';
+$txt['saythanks_ajax_loading'] = 'Спасибо...';
+$txt['saythanks_ajax_error'] = 'Ошибка во время нажатия Спасибо';
+$txt['saythanks_ajax_guest'] = '<a href="' . $scripturl . '?action=login">Войти, чтобы поблагодарить это сообщение</a>';
+// Say Thanks Mod
+]]></add>
+		</operation>
+	</file>
+	<file name="$themedir/languages/Modifications.spanish_es.php" error="skip">
+		<operation>
+			<search position="end" />
+			<add><![CDATA[
+// Say Thanks Mod
+// Spanish_es translation by d3vcho (http://www.simplemachines.org/community/index.php?action=profile;u=422971)
+$txt['saythanks_text'] = 'Da Gracias';
+$txt['saythanks_thanked'] = 'Los siguientes usuarios dieron las gracias a este tema: ';
+$txt['saythanks_thankscount'] = 'Agradecido';
+$txt['saythanks_times'] = 'veces'; // e.g Agradecido 7 veces
+$txt['saythanks_withdraw_thanks'] = 'Retirar las gracias';
+$txt['saythanks_settings'] = 'Da Gracias';
+$txt['saythanks_withdraw_thanks_settings_desc'] = 'Habilitar la opción de retirar las gracias';
+$txt['saythanks_hide_thanks_count_on_post_settings_desc'] = 'No mostrar el número de gracias en temas';
+$txt['saythanks_hide_thanks_count_in_profile_settings_desc'] = 'No mostrar el número de gracias en el perfil';
+$txt['saythanks_hide_thanks_stats_settings_desc'] = 'No mostrar las estadísticas  de los 10 mejores';
+$txt['saythanks_show_thanked_posts'] = 'Temas Agradecidos'; // Tab title for showing all your posts that have been thanked
+$txt['saythanks_show_thank_by_user_posts'] = 'Temas Agradecidos por el usuarios '; // Tab title for showing all the posts that you have thanked
+$txt['saythanks_most_thanked'] = '10 Usuarios más agradecidos';
+$txt['saythanks_most_thanks_given'] = '10 Usuarios que más agradecen';
+$txt['saythanks_most_thanked_posts'] = 'Los 10 Temas más agradecidos';
+$txt['saythanks_disable_on_boards'] = 'Deshabilitar en foros individuales';
+$txt['saythanks_title'] = 'Ocultar por número de agradecimientos';
+$txt['saythanks_hide_text'] = 'Necesitas al menos {thanks_needed} agradecimientos, aún te queda(n) {thanks_left} agradecimiento(s).';
+$txt['saythanks_desc'] = 'Oculta el contenido de un tema basándose en el número de agradecimientos.';
+$txt['saythanks_thanked_title'] = 'Ocultar por temas agradecidos';
+$txt['saythanks_hide_thanked_text'] = 'Debes dar las gracias a este tema para ver su contenido.';
+$txt['saythanks_thanked_desc'] = 'Oculta el contenido del tema basándose en el número de agradecidos.';
+$txt['saythanks_input_title'] = 'Número mínimo de agradecidos';
+$txt['saythanks_ajax_success'] = 'Agradecido';
+$txt['saythanks_ajax_loading'] = 'Agradeciendo...';
+$txt['saythanks_ajax_error'] = 'Hubo un error mientras se daban las gracias';
+$txt['saythanks_ajax_guest'] = '<a href="' . $scripturl . '?action=login">Inicia Sesión para agradecer este tema</a>';
+// Say Thanks Mod
+]]></add>
+		</operation>
+	</file>
+	<file name="$themedir/languages/Modifications.spanish_es-utf8.php" error="skip">
+			<operation>
+				<search position="end" />
+				<add><![CDATA[
+	// Say Thanks Mod
+	// Spanish_es translation by d3vcho (http://www.simplemachines.org/community/index.php?action=profile;u=422971)
+	$txt['saythanks_text'] = 'Da Gracias';
+	$txt['saythanks_thanked'] = 'Los siguientes usuarios dieron las gracias a este tema: ';
+	$txt['saythanks_thankscount'] = 'Agradecido';
+	$txt['saythanks_times'] = 'veces'; // e.g Agradecido 7 veces
+	$txt['saythanks_withdraw_thanks'] = 'Retirar las gracias';
+	$txt['saythanks_settings'] = 'Da Gracias';
+	$txt['saythanks_withdraw_thanks_settings_desc'] = 'Habilitar la opción de retirar las gracias';
+	$txt['saythanks_hide_thanks_count_on_post_settings_desc'] = 'No mostrar el número de gracias en temas';
+	$txt['saythanks_hide_thanks_count_in_profile_settings_desc'] = 'No mostrar el número de gracias en el perfil';
+	$txt['saythanks_hide_thanks_stats_settings_desc'] = 'No mostrar las estadísticas  de los 10 mejores';
+	$txt['saythanks_show_thanked_posts'] = 'Temas Agradecidos'; // Tab title for showing all your posts that have been thanked
+	$txt['saythanks_show_thank_by_user_posts'] = 'Temas Agradecidos por el usuarios '; // Tab title for showing all the posts that you have thanked
+	$txt['saythanks_most_thanked'] = '10 Usuarios más agradecidos';
+	$txt['saythanks_most_thanks_given'] = '10 Usuarios que más agradecen';
+	$txt['saythanks_most_thanked_posts'] = 'Los 10 Temas más agradecidos';
+	$txt['saythanks_disable_on_boards'] = 'Deshabilitar en foros individuales';
+	$txt['saythanks_title'] = 'Ocultar por número de agradecimientos';
+	$txt['saythanks_hide_text'] = 'Necesitas al menos {thanks_needed} agradecimientos, aún te queda(n) {thanks_left} agradecimiento(s).';
+	$txt['saythanks_desc'] = 'Oculta el contenido de un tema basándose en el número de agradecimientos.';
+	$txt['saythanks_thanked_title'] = 'Ocultar por temas agradecidos';
+	$txt['saythanks_hide_thanked_text'] = 'Debes dar las gracias a este tema para ver su contenido.';
+	$txt['saythanks_thanked_desc'] = 'Oculta el contenido del tema basándose en el número de agradecidos.';
+	$txt['saythanks_input_title'] = 'Número mínimo de agradecidos';
+	$txt['saythanks_ajax_success'] = 'Agradecido';
+	$txt['saythanks_ajax_loading'] = 'Agradeciendo...';
+	$txt['saythanks_ajax_error'] = 'Hubo un error mientras se daban las gracias';
+	$txt['saythanks_ajax_guest'] = '<a href="' . $scripturl . '?action=login">Inicia Sesión para agradecer este tema</a>';
+	// Say Thanks Mod
+	]]></add>
+		</operation>
+	</file>
+</modification>

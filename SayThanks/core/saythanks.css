@@ -1,0 +1,42 @@
+/* Styles for Say Thanks mod
+ *
+ * @package SMF
+ * @author kelvincoool
+ * @copyright 2015 kelvincoool
+ * @license http://creativecommons.org/licenses/by/3.0 CC
+ *
+ * @version 1.3.2
+------------------------------------------------------- */
+.thanks {
+	padding-top: 20px;
+}
+
+.thanks span {
+	font-weight: bold;
+}
+
+#st_disable_on_boards\[\] {
+	width: 400px;
+	height: 200px;
+	padding: 10px;
+}
+
+.thank_you_button, .thank_you_loading, .thank_you_success, .thank_you_error {
+	background: none !important;
+}
+
+.thank_you_hidden {
+	display: none;
+}
+
+#most_thanked
+{
+	float: left;
+	width: 49.5%;
+}
+
+#most_thanks_given, #most_thanked_posts
+{
+	float: right;
+	width: 49.5%;
+}
