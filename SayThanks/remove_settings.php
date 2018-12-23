@@ -7,7 +7,7 @@
  * @copyright 2014 kelvincoool, 2018 mtowara
  * @license http://creativecommons.org/licenses/by/3.0 CC
  *
- * @version 1.3
+ * @version 1.4.0
  */
 
 // If SSI.php is in the same place as this file, and SMF isn't defined, this is being run standalone.

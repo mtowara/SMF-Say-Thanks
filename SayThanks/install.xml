@@ -2,7 +2,7 @@
 <!DOCTYPE modification SYSTEM "http://www.simplemachines.org/xml/modification">
 <modification xmlns="http://www.simplemachines.org/xml/modification" xmlns:smf="http://www.simplemachines.org/">
 	<id>kelvincool:say_thanks</id>
-	<version>1.3.6</version>
+	<version>1.4.0</version>
 	<file name="$themedir/Display.template.php">
 		<operation>
 			<search position="before"><![CDATA[<div class="signature" id="msg_', $message['id'], '_signature">', $message['member']['signature'], '</div>';]]></search>

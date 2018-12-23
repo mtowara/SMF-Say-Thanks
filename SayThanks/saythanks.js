@@ -6,7 +6,7 @@
  * @copyright 2015 kelvincool
  * @license http://creativecommons.org/licenses/by/3.0 CC
  *
- * @version 1.3
+ * @version 1.4.0
  */
 
 function saythanks() {
